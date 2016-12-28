@@ -42,6 +42,13 @@ public class AddRemoveResource {
         return localAmazonSQSContainer.getMessages(queueName, value);
     }
 
+    @GET
+    @Path("/{queueName}/peek")
+    @Timed
+    public List<Message> peekMessages(@PathParam("queueName") String queueName) {
+        return localAmazonSQSContainer.peekMessages(queueName);
+    }
+
     @POST
     @Path("/{queueName}/put")
     @Produces(MediaType.APPLICATION_JSON)

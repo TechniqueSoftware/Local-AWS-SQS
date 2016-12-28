@@ -41,6 +41,14 @@ class LocalAmazonSQSContainer {
         return convertMessages(messagesFromQueueToConvert);
     }
 
+    synchronized List<Message> peekMessages(final String queueName) {
+        if (!queues.containsKey(queueName)) return Collections.emptyList();
+
+        final Stack<String> messagesFromQueue = queues.get(queueName);
+        final List<String> messagesFromQueueToConvert = new ArrayList<>(messagesFromQueue);
+        return convertMessages(messagesFromQueueToConvert);
+    }
+
     private List<Message> convertMessages(final List<String> messagesFromQueueToConvert) {
         final List<Message> convertedMessages = new ArrayList<>();
 
